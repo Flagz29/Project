@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detail Penduduk</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-r from-blue-50 to-blue-100 min-h-screen flex flex-col justify-center items-center">
+
+  <div class="w-full max-w-4xl mx-auto p-6">
+    <header class="text-center mb-8">
+      <h1 class="text-4xl font-bold text-blue-700 mb-2">Detail Penduduk</h1>
+      <p class="text-gray-600 text-lg">Lihat detail data penduduk</p>
+    </header>
+
+    <section class="bg-white shadow-lg rounded-lg p-6">
+      <div id="penduduk-detail">
+        <!-- Detail info will be displayed here -->
+      </div>
+      <div class="text-center mt-6">
+        <a href="daftar_penduduk.html" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 shadow-lg transition">Kembali ke Daftar</a>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    // Fetch the ID from the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const pendudukId = urlParams.get('id');
+
+    // Retrieve data from localStorage
+    let dataPenduduk = JSON.parse(localStorage.getItem('dataPenduduk')) || [];
+
+    // Find the selected penduduk based on the ID
+    const pendudukDetail = dataPenduduk.find(item => item.no == pendudukId);
+
+    // Display the details
+    const detailSection = document.getElementById('penduduk-detail');
+    
+    if (pendudukDetail) {
+      detailSection.innerHTML = `
+        <h2 class="text-2xl font-semibold text-blue-700 mb-4">Nama: ${pendudukDetail.nama}</h2>
+        <p class="text-lg text-gray-700 mb-2"><strong>Usia:</strong> ${pendudukDetail.usia} Tahun</p>
+        <p class="text-lg text-gray-700"><strong>Alamat:</strong> ${pendudukDetail.alamat}</p>
+      `;
+    } else {
+      detailSection.innerHTML = `
+        <p class="text-lg text-gray-700">Data penduduk tidak ditemukan!</p>
+      `;
+    }
+  </script>
+
+</body>
+</html>
